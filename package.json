@@ -1,0 +1,30 @@
+{
+  "name": "laravel-mix-jigsaw",
+  "version": "1.0.0",
+  "description": "Jigsaw compilation plugin for Laravel Mix",
+  "author": "Brandon Nifong",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/log1x/laravel-mix-jigsaw"
+  },
+  "homepage": "https://github.com/log1x/laravel-mix-jigsaw",
+  "bugs": "https://github.com/log1x/laravel-mix-jigsaw/issues",
+  "keywords": [
+    "jigsaw",
+    "laravel",
+    "laravel-mix"
+  ],
+  "dependencies": {
+    "argv": "^0.0.2",
+    "extra-watch-webpack-plugin": "^1.0.3",
+    "hasbin": "^1.2.3",
+    "node-cmd": "^3.0.0",
+    "yargs": "^14.0.0"
+  },
+  "peerDependencies": {
+    "browser-sync": "^2.26.7",
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "laravel-mix": "^4.0.0"
+  }
+}
