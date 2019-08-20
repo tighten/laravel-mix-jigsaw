@@ -3,7 +3,7 @@
 ![Latest Stable Version](https://img.shields.io/npm/v/laravel-mix-jigsaw?style=flat-square)
 ![Total Downloads](https://img.shields.io/npm/dt/laravel-mix-jigsaw?style=flat-square)
 
-This is a simple proof of concept of the [Jigsaw](https://github.com/tightenco/jigsaw) [build tasks](https://github.com/tightenco/jigsaw/tree/master/stubs/mix/tasks) written as a Laravel Mix plugin.
+This is a simple proof of concept of the [Jigsaw](https://github.com/tightenco/jigsaw) [build tasks](https://github.com/tightenco/jigsaw/tree/master/stubs/mix/tasks) written as a Laravel Mix plugin. Maybe it will be more one day?
 
 ## Installation
 
