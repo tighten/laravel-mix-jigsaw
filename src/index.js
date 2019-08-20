@@ -14,7 +14,7 @@ class Jigsaw {
   }
 
   /**
-   * Register the component.
+   * Register the Jigsaw component.
    *
    * @param  {Object} options
    * @return {void}
@@ -37,7 +37,7 @@ class Jigsaw {
   }
 
   /**
-   * Boot the component.
+   * Boot the Jigsaw component.
    *
    * @return {void}
    */
@@ -89,13 +89,15 @@ class Jigsaw {
    * @return {void}
    */
   compile() {
-    return require('node-cmd').get(this.path() + ' build -q ' + this.env, (error, stdout, stderr) => {
-      if (browserSync) {
-        browserSync.reload()
-      }
+    return require('node-cmd').get(
+      this.path() + ' build -q ' + this.env, (error, stdout, stderr) => {
+        if (browserSync) {
+          browserSync.reload()
+        }
 
-      console.log(error ? stderr : stdout)
-    })
+        console.log(error ? stderr : stdout)
+      }
+    )
   }
 
   /**
