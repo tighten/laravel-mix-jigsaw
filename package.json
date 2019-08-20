@@ -1,6 +1,6 @@
 {
   "name": "laravel-mix-jigsaw",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Jigsaw compilation plugin for Laravel Mix",
   "author": "Brandon Nifong",
   "license": "MIT",
