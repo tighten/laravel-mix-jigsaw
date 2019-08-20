@@ -15,6 +15,7 @@
     "laravel",
     "laravel-mix"
   ],
+  "main": "src/index.js",
   "dependencies": {
     "argv": "^0.0.2",
     "extra-watch-webpack-plugin": "^1.0.3",
