@@ -10,7 +10,7 @@ This is a simple proof of concept of the [Jigsaw](https://github.com/tightenco/j
 Install via Yarn:
 
 ```bash
-$ yarn add laravel-mix-jigsaw
+$ yarn add laravel-mix-jigsaw --dev
 ```
 
 ## Usage
