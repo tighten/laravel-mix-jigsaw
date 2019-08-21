@@ -49,8 +49,6 @@ class Jigsaw {
     if (this.options.publicPath) {
       mix.setPublicPath(this.options.publicPath)
     }
-
-    this.compile()
   }
 
   /**
@@ -86,18 +84,21 @@ class Jigsaw {
   /**
    * Compiles Jigsaw's views and reloads BrowserSync.
    *
+   * @param  {Object} compiler
    * @return {void}
    */
-  compile() {
-    return require('node-cmd').get(
-      this.path() + ' build -q ' + this.env, (error, stdout, stderr) => {
-        if (browserSync) {
-          browserSync.reload()
-        }
+  apply(compiler) {
+    compiler.hooks.done.tap('DonePlugin', () => {
+      return require('node-cmd').get(
+        this.path() + ' build -q ' + this.env, (error, stdout, stderr) => {
+          if (browserSync) {
+            browserSync.reload()
+          }
 
-        console.log(error ? stderr : stdout)
-      }
-    )
+          console.log(error ? stderr : stdout)
+        }
+      )
+    })
   }
 
   /**
