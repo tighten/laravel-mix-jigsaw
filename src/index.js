@@ -58,6 +58,7 @@ class Jigsaw {
    */
   webpackPlugins() {
     return [
+      this,
       this.options.browserSync ? this.browserSync() : null,
       this.options.watched ? this.watch(this.options.watched) : null,
     ]
