@@ -60,7 +60,7 @@ class Jigsaw {
     return [
       this,
       this.options.browserSync ? this.browserSync() : null,
-      this.options.watched ? this.watch(this.options.watched) : null,
+      this.options.watched ? this.watch() : null,
     ]
   }
 
@@ -103,17 +103,16 @@ class Jigsaw {
   }
 
   /**
-   * Returns an instance of ExtraWatchWebpackPlugin with our paths.
+   * Returns an instance of ExtraWatchWebpackPlugin with our watched paths.
    *
-   * @param  {Array} paths
    * @return {void}
    */
-  watch(paths) {
+  watch() {
     const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin')
 
     return new ExtraWatchWebpackPlugin({
-      files: paths,
-    })
+      files: this.options.watched,
+    });
   }
 
   /**
