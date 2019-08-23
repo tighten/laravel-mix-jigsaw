@@ -112,7 +112,7 @@ class Jigsaw {
 
     return new ExtraWatchWebpackPlugin({
       files: this.options.watched,
-    });
+    })
   }
 
   /**
