@@ -37,10 +37,14 @@ mix.jigsaw({
   disableSuccessNotifications: true,
   publicPath: 'source/assets/build',
   watched: [
-    'source/**/*.md',
+    'config*.php',
+    'bootstrap.php',
+    'blade.php',
+    'listeners/**/*.php',
     'source/**/*.php',
-    'source/**/*.scss',
-    '!source/**/_tmp/*',
+    'source/**/*.md',
+    'source/**/_assets/*',
+    '!source/**/_tmp/*'
   ],
 });
 ```
