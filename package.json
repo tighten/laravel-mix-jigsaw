@@ -16,6 +16,9 @@
     "laravel-mix"
   ],
   "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint src/ --max-warnings=0"
+  },
   "dependencies": {
     "argv": "^0.0.2",
     "extra-watch-webpack-plugin": "^1.0.3",
@@ -26,6 +29,9 @@
   "peerDependencies": {
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
-    "laravel-mix": "^4.0.0"
+    "laravel-mix": "^4.0.0|^5.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.4.0"
   }
 }

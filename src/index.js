@@ -1,7 +1,7 @@
-const mix  = require('laravel-mix')
-const argv = require('yargs').argv
+const mix  = require('laravel-mix');
+const argv = require('yargs').argv;
 
-let browserSync
+let browserSync;
 
 class Jigsaw {
   /**
@@ -10,7 +10,7 @@ class Jigsaw {
    * @return {Array}
    */
   name() {
-    return ['jigSaw', 'jigsaw']
+    return ['jigSaw', 'jigsaw'];
   }
 
   /**
@@ -20,8 +20,8 @@ class Jigsaw {
    * @return {void}
    */
   register(options = {}) {
-    this.env = argv.env || 'local'
-    this.port = argv.port || 3000
+    this.env = argv.env || 'local';
+    this.port = argv.port || 3000;
 
     this.options = Object.assign({
       browserSync: true,
@@ -36,8 +36,8 @@ class Jigsaw {
         'source/**/*.md',
         'source/**/_assets/*',
         '!source/**/_tmp/*'
-      ],
-    }, options)
+      ]
+    }, options);
   }
 
   /**
@@ -47,11 +47,11 @@ class Jigsaw {
    */
   boot() {
     if (this.options.disableSuccessNotifications) {
-      mix.disableSuccessNotifications()
+      mix.disableSuccessNotifications();
     }
 
     if (this.options.publicPath) {
-      mix.setPublicPath(this.options.publicPath)
+      mix.setPublicPath(this.options.publicPath);
     }
   }
 
@@ -64,8 +64,8 @@ class Jigsaw {
     return [
       this,
       this.options.browserSync ? this.browserSync() : null,
-      this.options.watched ? this.watch() : null,
-    ]
+      this.options.watched ? this.watch() : null
+    ];
   }
 
   /**
@@ -75,15 +75,15 @@ class Jigsaw {
     */
   path() {
     if (require('fs').existsSync('./vendor/bin/jigsaw')) {
-      return require('path').normalize('./vendor/bin/jigsaw')
+      return require('path').normalize('./vendor/bin/jigsaw');
     }
 
     if (require('hasbin').sync('jigsaw')) {
-      return 'jigsaw'
+      return 'jigsaw';
     }
 
-    console.error('Could not find Jigsaw; please install it via Composer.')
-    process.exit()
+    console.error('Could not find Jigsaw; please install it via Composer.');
+    process.exit();
   }
 
   /**
@@ -97,13 +97,13 @@ class Jigsaw {
       return require('node-cmd').get(
         this.path() + ' build -q ' + this.env, (error, stdout, stderr) => {
           if (browserSync) {
-            browserSync.reload()
+            browserSync.reload();
           }
 
-          console.log(error ? stderr : stdout)
+          console.log(error ? stderr : stdout);
         }
-      )
-    })
+      );
+    });
   }
 
   /**
@@ -112,11 +112,11 @@ class Jigsaw {
    * @return {void}
    */
   watch() {
-    const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin')
+    const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
 
     return new ExtraWatchWebpackPlugin({
-      files: this.options.watched,
-    })
+      files: this.options.watched
+    });
   }
 
   /**
@@ -126,20 +126,20 @@ class Jigsaw {
    * @return {void}
    */
   browserSync(proxy) {
-    const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+    const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
     return new BrowserSyncPlugin({
       notify: false,
       port: this.port,
       proxy: proxy,
-      server: proxy ? null : { baseDir: 'build_' + this.env + '/' },
+      server: proxy ? null : { baseDir: 'build_' + this.env + '/' }
     }, {
       reload: false,
       callback: () => {
-        browserSync = require('browser-sync').get('bs-webpack-plugin')
-      },
-    })
+        browserSync = require('browser-sync').get('bs-webpack-plugin');
+      }
+    });
   }
 }
 
-mix.extend('jigsaw', new Jigsaw())
+mix.extend('jigsaw', new Jigsaw());
