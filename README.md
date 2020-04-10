@@ -1,62 +1,67 @@
-# Laravel Mix Jigsaw
+# Jigsaw build tasks for Laravel Mix
 
-![Latest Stable Version](https://img.shields.io/npm/v/laravel-mix-jigsaw?style=flat-square)
-![Total Downloads](https://img.shields.io/npm/dt/laravel-mix-jigsaw?style=flat-square)
+[![MIT License](https://img.shields.io/github/license/tightenco/laravel-mix-jigsaw)](https://github.com/tightenco/laravel-mix-jigsaw/blob/master/LICENSE.md)
+[![Latest Stable Version](https://img.shields.io/npm/v/laravel-mix-jigsaw)](https://www.npmjs.com/package/laravel-mix-jigsaw)
+[![Total Downloads](https://img.shields.io/npm/dt/laravel-mix-jigsaw)](https://www.npmjs.com/package/laravel-mix-jigsaw)
 
-This is a simple proof of concept of the [Jigsaw](https://github.com/tightenco/jigsaw) [build tasks](https://github.com/tightenco/jigsaw/tree/master/stubs/mix/tasks) written as a Laravel Mix plugin. Maybe it will be more one day?
+`laravel-mix-jigsaw` is a [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) plugin containing the build tasks for the [Jigsaw](https://github.com/tightenco/jigsaw) static site generator.
+
+```js
+const mix = require('laravel-mix');
+require('laravel-mix-jigsaw');
+
+mix.jigsaw()
+   .js('source/_assets/js/main.js', 'js')
+   .sass('source/_assets/sass/main.scss', 'css');
+```
 
 ## Installation
 
-Install via Yarn:
-
-```bash
-$ yarn add laravel-mix-jigsaw --dev
+```shell
+npm install laravel-mix-jigsaw --save-dev
 ```
 
 ## Usage
 
-### Basic Usage
+Require the module in your `webpack.mix.js`.
 
 ```js
 const mix = require('laravel-mix');
-            require('laravel-mix-jigsaw');
-
-mix.jigsaw()
-   .js('source/_assets/js/main.js', 'js')
-   .sass('source/_assets/sass/main.scss', 'css')
-   .options({
-     processCssUrls: false,
-   }).version();
+require('laravel-mix-purgecss');
 ```
 
-### Configuration
+Enable the build tasks by calling `.jigsaw()` anywhere in your Mix build chain.
+
+```js
+mix.js('source/_assets/js/main.js', 'js')
+   .sass('source/_assets/sass/main.scss', 'css')
+   .jigsaw();
+```
+
+You can pass the plugin an object containing custom options if necessary.
 
 ```js
 mix.jigsaw({
-  browserSync: true,
-  disableSuccessNotifications: true,
-  publicPath: 'source/assets/build',
-  watched: [
-    'config*.php',
-    'bootstrap.php',
-    'blade.php',
-    'listeners/**/*.php',
-    'source/**/*.php',
-    'source/**/*.md',
-    'source/**/_assets/*',
-    '!source/**/_tmp/*'
-  ],
+    browserSync: true,
+    disableSuccessNotifications: true,
+    publicPath: 'source/assets/build',
+    watched: [
+        'config*.php',
+        'bootstrap.php',
+        'blade.php',
+        'listeners/**/*.php',
+        'source/**/*.php',
+        'source/**/*.md',
+        'source/**/_assets/*',
+        '!source/**/_tmp/*'
+    ],
 });
 ```
 
-## Bug Reports
+## Credits
 
-If you discover a bug in Laravel Mix Jigsaw, please [open an issue](https://github.com/log1x/laravel-mix-jigsaw/issues).
-
-## Contributing
-
-Contributing whether it be through PRs, reporting an issue, or suggesting an idea is encouraged and appreciated.
+Huge thanks to [Brandon](https://github.com/Log1x) for creating the initial package!
 
 ## License
 
-Laravel Mix Jigsaw is provided under the [MIT License](https://github.com/log1x/laravel-mix-jigsaw/blob/master/LICENSE.md).
+Laravel Mix Jigsaw is provided under the [MIT License](LICENSE.md).
