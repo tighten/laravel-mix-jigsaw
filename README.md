@@ -27,7 +27,7 @@ Require the module in your `webpack.mix.js`.
 
 ```js
 const mix = require('laravel-mix');
-require('laravel-mix-purgecss');
+require('laravel-mix-jigsaw');
 ```
 
 Enable the build tasks by calling `.jigsaw()` anywhere in your Mix build chain.
