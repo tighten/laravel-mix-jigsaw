@@ -1,5 +1,14 @@
-const mix  = require('laravel-mix');
+const mix = require('laravel-mix');
+
 const argv = require('yargs').argv;
+const command = require('node-cmd');
+const fs = require('fs');
+const hasbin = require('hasbin');
+const path = require('path');
+
+const BrowserSync = require('browser-sync');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
 
 let browserSync;
 
@@ -74,11 +83,11 @@ class Jigsaw {
     * @return {String|void}
     */
   path() {
-    if (require('fs').existsSync('./vendor/bin/jigsaw')) {
-      return require('path').normalize('./vendor/bin/jigsaw');
+    if (fs.existsSync('./vendor/bin/jigsaw')) {
+      return path.normalize('./vendor/bin/jigsaw');
     }
 
-    if (require('hasbin').sync('jigsaw')) {
+    if (hasbin.sync('jigsaw')) {
       return 'jigsaw';
     }
 
@@ -94,7 +103,7 @@ class Jigsaw {
    */
   apply(compiler) {
     compiler.hooks.done.tap('DonePlugin', () => {
-      return require('node-cmd').get(
+      return command.get(
         this.path() + ' build -q ' + this.env, (error, stdout, stderr) => {
           if (browserSync) {
             browserSync.reload();
@@ -112,8 +121,6 @@ class Jigsaw {
    * @return {void}
    */
   watch() {
-    const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
-
     return new ExtraWatchWebpackPlugin({
       files: this.options.watched
     });
@@ -126,8 +133,6 @@ class Jigsaw {
    * @return {void}
    */
   browserSync(proxy) {
-    const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-
     return new BrowserSyncPlugin({
       notify: false,
       port: this.port,
@@ -136,7 +141,7 @@ class Jigsaw {
     }, {
       reload: false,
       callback: () => {
-        browserSync = require('browser-sync').get('bs-webpack-plugin');
+        browserSync = BrowserSync.get('bs-webpack-plugin');
       }
     });
   }
