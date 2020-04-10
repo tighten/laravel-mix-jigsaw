@@ -3,7 +3,7 @@
     "version": "1.0.0-rc.1",
     "description": "Laravel Mix plugin for Jigsaw build tasks",
     "license": "MIT",
-    "main": "src/index.js",
+    "main": "index.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/tightenco/laravel-mix-jigsaw"
