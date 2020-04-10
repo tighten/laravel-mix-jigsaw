@@ -10,141 +10,98 @@ const BrowserSync = require('browser-sync');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
 
-let browserSync;
+let browserSyncInstance;
 
 class Jigsaw {
-  /**
-   * The optional name to be used when called by Mix.
-   *
-   * @return {Array}
-   */
-  name() {
-    return ['jigSaw', 'jigsaw'];
-  }
+    /**
+     * Register the component.
+     */
+    register(config = {}) {
+        this.env = argv.env || 'local';
+        this.port = argv.port || 3000;
+        this.bin = this.binaryPath();
 
-  /**
-   * Register the Jigsaw component.
-   *
-   * @param  {Object} options
-   * @return {void}
-   */
-  register(options = {}) {
-    this.env = argv.env || 'local';
-    this.port = argv.port || 3000;
-
-    this.options = Object.assign({
-      browserSync: true,
-      disableSuccessNotifications: true,
-      publicPath: 'source/assets/build',
-      watched: [
-        'config*.php',
-        'bootstrap.php',
-        'blade.php',
-        'listeners/**/*.php',
-        'source/**/*.php',
-        'source/**/*.md',
-        'source/**/_assets/*',
-        '!source/**/_tmp/*'
-      ]
-    }, options);
-  }
-
-  /**
-   * Boot the Jigsaw component.
-   *
-   * @return {void}
-   */
-  boot() {
-    if (this.options.disableSuccessNotifications) {
-      mix.disableSuccessNotifications();
+        this.config = {
+            browserSync: true,
+            watch: [
+                'source/**/*.md',
+                'source/**/*.php',
+                'source/**/*.scss',
+                '!source/**/_tmp/*',
+            ],
+            ...config,
+        };
     }
 
-    if (this.options.publicPath) {
-      mix.setPublicPath(this.options.publicPath);
-    }
-  }
-
-  /**
-   * Webpack Plugins
-   *
-   * @return {Array}
-   */
-  webpackPlugins() {
-    return [
-      this,
-      this.options.browserSync ? this.browserSync() : null,
-      this.options.watched ? this.watch() : null
-    ];
-  }
-
-  /**
-    * Returns the working path to the jigsaw bin.
-    *
-    * @return {String|void}
-    */
-  path() {
-    if (fs.existsSync('./vendor/bin/jigsaw')) {
-      return path.normalize('./vendor/bin/jigsaw');
+    /*
+     * Plugins to be merged with the master webpack config.
+     */
+    webpackPlugins() {
+        return [
+            this.jigsawPlugin(),
+            this.config.browserSync ? this.browserSyncPlugin() : null,
+            this.config.watch ? this.watchPlugin() : null,
+        ];
     }
 
-    if (hasbin.sync('jigsaw')) {
-      return 'jigsaw';
-    }
-
-    console.error('Could not find Jigsaw; please install it via Composer.');
-    process.exit();
-  }
-
-  /**
-   * Compiles Jigsaw's views and reloads BrowserSync.
-   *
-   * @param  {Object} compiler
-   * @return {void}
-   */
-  apply(compiler) {
-    compiler.hooks.done.tap('DonePlugin', () => {
-      return command.get(
-        this.path() + ' build -q ' + this.env, (error, stdout, stderr) => {
-          if (browserSync) {
-            browserSync.reload();
-          }
-
-          console.log(error ? stderr : stdout);
+    /**
+     * Get the path to the Jigsaw binary.
+     */
+    binaryPath() {
+        if (fs.existsSync('./vendor/bin/jigsaw')) {
+            return path.normalize('./vendor/bin/jigsaw');
         }
-      );
-    });
-  }
 
-  /**
-   * Returns an instance of ExtraWatchWebpackPlugin with our watched paths.
-   *
-   * @return {void}
-   */
-  watch() {
-    return new ExtraWatchWebpackPlugin({
-      files: this.options.watched
-    });
-  }
+        if (hasbin.sync('jigsaw')) {
+            return 'jigsaw';
+        }
 
-  /**
-   * Returns an instance of BrowserSyncPlugin with our proxy.
-   *
-   * @param  {String} proxy
-   * @return {void}
-   */
-  browserSync(proxy) {
-    return new BrowserSyncPlugin({
-      notify: false,
-      port: this.port,
-      proxy: proxy,
-      server: proxy ? null : { baseDir: 'build_' + this.env + '/' }
-    }, {
-      reload: false,
-      callback: () => {
-        browserSync = BrowserSync.get('bs-webpack-plugin');
-      }
-    });
-  }
+        console.error('Could not find Jigsaw; please install it via Composer.');
+        process.exit();
+    }
+
+    /**
+     * Get the Jigsaw webpack plugin, to build the Jigsaw site and reload BrowserSync.
+     */
+    jigsawPlugin(compiler) {
+        return new class {
+            apply(compiler) {
+                compiler.hooks.done.tap('Jigsaw Webpack Plugin', () => {
+                    return command.get(`${this.bin} build -q ${this.env}`, (error, stdout, stderr) => {
+                        console.log(error ? stderr : stdout);
+
+                        if (browserSyncInstance) {
+                            browserSyncInstance.reload();
+                        }
+                    });
+                });
+            }
+        };
+    }
+
+    /**
+     * Get and instance of the ExtraWatchWebpackPlugin.
+     */
+    watchPlugin() {
+        return new ExtraWatchWebpackPlugin({
+            files: this.config.watch,
+        });
+    }
+
+    /**
+     * Get an instance of the BrowserSyncPlugin.
+     */
+    browserSyncPlugin(proxy) {
+        return new BrowserSyncPlugin({
+            notify: false,
+            port: this.port,
+            proxy: proxy,
+            server: proxy ? null : { baseDir: 'build_' + this.env + '/' },
+        }, {
+            reload: false,
+            callback: () => browserSyncInstance = BrowserSync.get('bs-webpack-plugin'),
+        });
+    }
 }
 
 mix.extend('jigsaw', new Jigsaw());

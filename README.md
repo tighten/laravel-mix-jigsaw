@@ -43,17 +43,11 @@ You can pass the plugin an object containing custom options if necessary.
 ```js
 mix.jigsaw({
     browserSync: true,
-    disableSuccessNotifications: true,
-    publicPath: 'source/assets/build',
-    watched: [
-        'config*.php',
-        'bootstrap.php',
-        'blade.php',
-        'listeners/**/*.php',
-        'source/**/*.php',
+    watch: [
         'source/**/*.md',
-        'source/**/_assets/*',
-        '!source/**/_tmp/*'
+        'source/**/*.php',
+        'source/**/*.scss',
+        '!source/**/_tmp/*',
     ],
 });
 ```
