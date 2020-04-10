@@ -17,7 +17,7 @@ mix.jigsaw()
 
 ## Installation
 
-```shell
+```sh
 npm install laravel-mix-jigsaw --save-dev
 ```
 
