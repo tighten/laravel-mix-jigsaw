@@ -1,4 +1,4 @@
-# Jigsaw build tasks for Laravel Mix
+# Jigsaw plugin for Laravel Mix
 
 [![MIT License](https://img.shields.io/github/license/tightenco/laravel-mix-jigsaw)](https://github.com/tightenco/laravel-mix-jigsaw/blob/master/LICENSE.md)
 [![Latest Stable Version](https://img.shields.io/npm/v/laravel-mix-jigsaw)](https://www.npmjs.com/package/laravel-mix-jigsaw)
