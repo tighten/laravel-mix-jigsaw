@@ -1,37 +1,31 @@
 {
-  "name": "laravel-mix-jigsaw",
-  "version": "1.0.5",
-  "description": "Jigsaw compilation plugin for Laravel Mix",
-  "author": "Brandon Nifong",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/log1x/laravel-mix-jigsaw"
-  },
-  "homepage": "https://github.com/log1x/laravel-mix-jigsaw",
-  "bugs": "https://github.com/log1x/laravel-mix-jigsaw/issues",
-  "keywords": [
-    "jigsaw",
-    "laravel",
-    "laravel-mix"
-  ],
-  "main": "src/index.js",
-  "scripts": {
-    "lint": "eslint src/ --max-warnings=0"
-  },
-  "dependencies": {
-    "argv": "^0.0.2",
-    "extra-watch-webpack-plugin": "^1.0.3",
-    "hasbin": "^1.2.3",
-    "node-cmd": "^3.0.0",
-    "yargs": "^14.0.0"
-  },
-  "peerDependencies": {
-    "browser-sync": "^2.26.7",
-    "browser-sync-webpack-plugin": "^2.2.2",
-    "laravel-mix": "^4.0.0|^5.0.0"
-  },
-  "devDependencies": {
-    "eslint": "^6.4.0"
-  }
+    "name": "laravel-mix-jigsaw",
+    "version": "1.0.0",
+    "description": "Laravel Mix plugin for Jigsaw build tasks",
+    "license": "MIT",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tightenco/laravel-mix-jigsaw"
+    },
+    "author": "Brandon Nifong",
+    "homepage": "https://github.com/tightenco/laravel-mix-jigsaw",
+    "bugs": "https://github.com/tightenco/laravel-mix-jigsaw/issues",
+    "keywords": [
+        "jigsaw",
+        "laravel",
+        "laravel-mix",
+        "laravel-mix-plugin"
+    ],
+    "dependencies": {
+        "extra-watch-webpack-plugin": "^1.0.3",
+        "hasbin": "^1.2.3",
+        "node-cmd": "^3.0.0",
+        "yargs": "^15.3.1"
+    },
+    "peerDependencies": {
+        "browser-sync": "^2.26.7",
+        "browser-sync-webpack-plugin": "^2.2.2",
+        "laravel-mix": "^4.0|^5.0"
+    }
 }
