@@ -26,6 +26,6 @@
     "peerDependencies": {
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.2.2",
-        "laravel-mix": "^4.0|^5.0"
+        "laravel-mix": "^5.0"
     }
 }
