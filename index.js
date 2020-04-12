@@ -64,10 +64,12 @@ class Jigsaw {
      * Get the Jigsaw webpack plugin, to build the Jigsaw site and reload BrowserSync.
      */
     jigsawPlugin(compiler) {
+        let { bin, env } = { bin: this.bin, env: this.env };
+
         return new class {
             apply(compiler) {
                 compiler.hooks.done.tap('Jigsaw Webpack Plugin', () => {
-                    return command.get(`${this.bin} build -q ${this.env}`, (error, stdout, stderr) => {
+                    return command.get(`${bin} build -q ${env}`, (error, stdout, stderr) => {
                         console.log(error ? stderr : stdout);
 
                         if (browserSyncInstance) {
