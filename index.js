@@ -23,6 +23,7 @@ class Jigsaw {
 
         this.config = {
             browserSync: true,
+            proxy: undefined,
             watch: [
                 'source/**/*.md',
                 'source/**/*.php',
@@ -39,7 +40,7 @@ class Jigsaw {
     webpackPlugins() {
         return [
             this.jigsawPlugin(),
-            this.config.browserSync ? this.browserSyncPlugin() : null,
+            this.config.browserSync ? this.browserSyncPlugin(this.config.proxy) : null,
             this.config.watch ? this.watchPlugin() : null,
         ];
     }
