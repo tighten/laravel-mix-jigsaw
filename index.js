@@ -40,9 +40,9 @@ class Jigsaw {
     webpackPlugins() {
         return [
             this.jigsawPlugin(),
-            this.config.browserSync ? this.browserSyncPlugin(this.config.proxy) : null,
-            this.config.watch ? this.watchPlugin() : null,
-        ];
+            this.config.browserSync ? this.browserSyncPlugin(this.config.proxy) : undefined,
+            this.config.watch ? this.watchPlugin() : undefined,
+        ].filter(plugin => plugin);
     }
 
     /**
