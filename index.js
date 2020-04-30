@@ -23,6 +23,7 @@ class Jigsaw {
 
         this.config = {
             browserSync: true,
+            open: true,
             proxy: undefined,
             watch: [
                 'source/**/*.md',
@@ -97,6 +98,7 @@ class Jigsaw {
     browserSyncPlugin(proxy) {
         return new BrowserSyncPlugin({
             notify: false,
+            open: this.config.open,
             port: this.port,
             proxy: proxy,
             server: proxy ? null : { baseDir: 'build_' + this.env + '/' },
