@@ -47,7 +47,7 @@ mix.jigsaw({
         'source/**/*.md',
         'source/**/*.php',
         'source/**/*.scss',
-        '!source/**/_tmp/*',
+        '!source/**/cache/*',
     ],
 });
 ```
