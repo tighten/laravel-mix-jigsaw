@@ -28,7 +28,7 @@ class Jigsaw {
                 'source/**/*.md',
                 'source/**/*.php',
                 'source/**/*.scss',
-                '!source/**/_tmp/*',
+                '!source/**/cache/*',
             ],
             ...config,
         };
