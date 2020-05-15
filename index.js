@@ -27,6 +27,7 @@ class Jigsaw {
             online: true,
             proxy: undefined,
             watch: [
+                'config.php',
                 'source/**/*.md',
                 'source/**/*.php',
                 'source/**/*.scss',
