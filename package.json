@@ -1,6 +1,6 @@
 {
     "name": "laravel-mix-jigsaw",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "description": "Laravel Mix plugin for Jigsaw build tasks",
     "license": "MIT",
     "main": "index.js",
