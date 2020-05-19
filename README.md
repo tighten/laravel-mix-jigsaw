@@ -44,6 +44,7 @@ You can pass the plugin an object containing custom options if necessary.
 mix.jigsaw({
     browserSync: true,
     watch: [
+        'config.php',
         'source/**/*.md',
         'source/**/*.php',
         'source/**/*.scss',
