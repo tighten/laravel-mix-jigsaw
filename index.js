@@ -10,6 +10,9 @@ const BrowserSync = require('browser-sync');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
 
+const AsyncSeriesHook = require('tapable').AsyncSeriesHook;
+const SyncHook = require('tapable').SyncHook;
+
 let browserSyncInstance;
 
 class Jigsaw {
@@ -72,6 +75,12 @@ class Jigsaw {
 
         return new class {
             apply(compiler) {
+                if (compiler.hooks.jigsawWebpackBuildDone) {
+                    throw new Error('Jigsaw webpack build done hooks are already in use.');
+                }
+
+                compiler.hooks.jigsawWebpackBuildDone = new SyncHook([]);
+
                 compiler.hooks.done.tap('Jigsaw Webpack Plugin', () => {
                     return command.get(`${bin} build -q ${env}`, (error, stdout, stderr) => {
                         console.log(error ? stderr : stdout);
@@ -79,6 +88,8 @@ class Jigsaw {
                         if (browserSyncInstance) {
                             browserSyncInstance.reload();
                         }
+
+                        compiler.hooks.jigsawWebpackBuildDone.callAsync(() => {});
                     });
                 });
             }
