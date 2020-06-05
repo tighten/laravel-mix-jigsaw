@@ -88,7 +88,7 @@ class Jigsaw {
                             browserSyncInstance.reload();
                         }
 
-                        compiler.hooks.jigsawWebpackBuildDone.callAsync(() => {});
+                        compiler.hooks.jigsawWebpackBuildDone.call();
                     });
                 });
             }
