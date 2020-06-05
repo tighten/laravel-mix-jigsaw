@@ -74,10 +74,6 @@ class Jigsaw {
 
         return new class {
             apply(compiler) {
-                if (compiler.hooks.jigsawWebpackBuildDone) {
-                    throw new Error('Jigsaw webpack build done hooks are already in use.');
-                }
-
                 compiler.hooks.jigsawWebpackBuildDone = new SyncHook([]);
 
                 compiler.hooks.done.tap('Jigsaw Webpack Plugin', () => {
