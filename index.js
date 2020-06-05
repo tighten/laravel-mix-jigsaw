@@ -10,8 +10,7 @@ const BrowserSync = require('browser-sync');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
 
-const AsyncSeriesHook = require('tapable').AsyncSeriesHook;
-const SyncHook = require('tapable').SyncHook;
+const { SyncHook } = require('tapable');
 
 let browserSyncInstance;
 
