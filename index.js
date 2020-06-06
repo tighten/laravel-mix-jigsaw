@@ -111,6 +111,7 @@ class Jigsaw {
             port: this.port,
             proxy: proxy,
             server: proxy ? null : { baseDir: 'build_' + this.env + '/' },
+            ...this.config.browserSyncOptions
         }, {
             reload: false,
             callback: () => browserSyncInstance = BrowserSync.get('bs-webpack-plugin'),
