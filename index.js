@@ -35,6 +35,7 @@ class Jigsaw {
                 'source/**/*.scss',
                 '!source/**/cache/*',
             ],
+            browserSyncOptions: {},
             ...config,
         };
     }
