@@ -19,7 +19,15 @@ class Jigsaw {
      * Register the component.
      */
     register(config = {}) {
-        this.env = argv.env || 'local';
+        if (typeof argv.env === 'string') {
+            this.env = argv.env;
+        } else {
+            this.env = process.env.NODE_ENV || 'local';
+            if (this.env === 'development') {
+                this.env = 'local';
+            }
+        }
+
         this.port = argv.port || 3000;
         this.bin = this.binaryPath();
 
