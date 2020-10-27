@@ -36,6 +36,7 @@ class Jigsaw {
             open: true,
             online: true,
             proxy: undefined,
+            pretty: true,
             watch: [
                 'config.php',
                 'source/**/*.md',
@@ -79,14 +80,14 @@ class Jigsaw {
      * Get the Jigsaw webpack plugin, to build the Jigsaw site and reload BrowserSync.
      */
     jigsawPlugin(compiler) {
-        let { bin, env } = { bin: this.bin, env: this.env };
+        let { bin, env, pretty } = { bin: this.bin, env: this.env, pretty: this.config.pretty };
 
         return new class {
             apply(compiler) {
                 compiler.hooks.jigsawDone = new SyncHook([]);
 
                 compiler.hooks.done.tap('Jigsaw Webpack Plugin', () => {
-                    return command.get(`${bin} build -q ${env}`, (error, stdout, stderr) => {
+                    return command.get(`${bin} build --pretty=${pretty} -q ${env}`, (error, stdout, stderr) => {
                         console.log(error ? stderr : stdout);
 
                         if (browserSyncInstance) {
