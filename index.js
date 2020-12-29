@@ -82,12 +82,12 @@ class Jigsaw {
     jigsawPlugin(compiler) {
         let { bin, env } = { bin: this.bin, env: this.env };
 
-        if (isWebpack4) {
-            compiler.hooks.jigsawDone = new SyncHook([]);
-        }
-
         return new class {
             apply(compiler) {
+                if (isWebpack4) {
+                    compiler.hooks.jigsawDone = new SyncHook([]);
+                }
+
                 compiler.hooks.done.tap('Jigsaw Webpack Plugin', () => {
                     return command.get(`${bin} build -q ${env}`, (error, stdout, stderr) => {
                         console.log(error ? stderr : stdout);
