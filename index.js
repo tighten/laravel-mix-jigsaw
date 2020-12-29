@@ -83,8 +83,6 @@ class Jigsaw {
 
         return new class {
             apply(compiler) {
-                compiler.hooks.jigsawDone = new SyncHook([]);
-
                 compiler.hooks.done.tap('Jigsaw Webpack Plugin', () => {
                     return command.get(`${bin} build -q ${env}`, (error, stdout, stderr) => {
                         console.log(error ? stderr : stdout);
@@ -92,8 +90,6 @@ class Jigsaw {
                         if (browserSyncInstance) {
                             browserSyncInstance.reload();
                         }
-
-                        compiler.hooks.jigsawDone.call();
                     });
                 });
             }
