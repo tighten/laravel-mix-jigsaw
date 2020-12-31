@@ -80,7 +80,7 @@ class Jigsaw {
     /**
      * Get the Jigsaw webpack plugin, to build the Jigsaw site and reload BrowserSync.
      */
-    jigsawPlugin(compiler) {
+    jigsawPlugin() {
         let { bin, env } = { bin: this.bin, env: this.env };
 
         return new class {
