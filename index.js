@@ -89,7 +89,7 @@ class Jigsaw {
                     compiler.hooks.jigsawDone = new SyncHook([]);
                 }
 
-                compiler.hooks.done.tap('Jigsaw Webpack Plugin', (compilation) => {
+                compiler.hooks.afterEmit.tap('Jigsaw Webpack Plugin', (compilation) => {
                     return command.get(`${bin} build -q ${env}`, (error, stdout, stderr) => {
                         console.log(error ? stderr : stdout);
 
