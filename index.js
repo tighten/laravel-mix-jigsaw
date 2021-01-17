@@ -11,6 +11,8 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
 
 const { SyncHook } = require('tapable');
+const { getJigsawHooks } = require('./hooks');
+const webpackVersion = Number(require('webpack/package.json').version.split('.')[0]);
 
 let browserSyncInstance;
 
@@ -78,14 +80,16 @@ class Jigsaw {
     /**
      * Get the Jigsaw webpack plugin, to build the Jigsaw site and reload BrowserSync.
      */
-    jigsawPlugin(compiler) {
+    jigsawPlugin() {
         let { bin, env } = { bin: this.bin, env: this.env };
 
         return new class {
             apply(compiler) {
-                compiler.hooks.jigsawDone = new SyncHook([]);
+                if (webpackVersion < 5) {
+                    compiler.hooks.jigsawDone = new SyncHook([]);
+                }
 
-                compiler.hooks.done.tap('Jigsaw Webpack Plugin', () => {
+                compiler.hooks.afterEmit.tap('Jigsaw Webpack Plugin', (compilation) => {
                     return command.get(`${bin} build -q ${env}`, (error, stdout, stderr) => {
                         console.log(error ? stderr : stdout);
 
@@ -93,7 +97,9 @@ class Jigsaw {
                             browserSyncInstance.reload();
                         }
 
-                        compiler.hooks.jigsawDone.call();
+                        webpackVersion < 5
+                            ? compiler.hooks.jigsawDone.call()
+                            : getJigsawHooks(compilation).done.call();
                     });
                 });
             }
