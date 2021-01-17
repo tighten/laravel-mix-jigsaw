@@ -6,9 +6,7 @@ function getJigsawHooks(compilation) {
     let hooks = JigsawHooksMap.get(compilation);
 
     if (hooks === undefined) {
-        hooks = {
-            done: new SyncHook([]),
-        };
+        hooks = { done: new SyncHook([]) };
 
         JigsawHooksMap.set(compilation, hooks);
     }
