@@ -27,25 +27,26 @@ const watch = ({ files, dirs, notDirs }) => (compilation, callback) => {
     callback();
 }
 
-const setup = {
-    watch: {
-        files: [
-            'config.php',
-            'bootstrap.php',
-            'blade.php',
-            'listeners/**/*.php',
-            'source/*.md',
-            'source/*.php',
-            'source/*.html',
-        ],
-        dirs: ['source/*/'],
-        notDirs: ['source/_assets/', 'source/assets/'],
-    },
-};
-
 mix.extend('jigsaw', new class {
-    register(config) {
-        this.config = config instanceof Function ? config(setup) : config;
+    config = {
+        watch: {
+            files: [
+                'config.php',
+                'bootstrap.php',
+                'blade.php',
+                'listeners/**/*.php',
+                'source/*.md',
+                'source/*.php',
+                'source/*.html',
+            ],
+            dirs: ['source/*/'],
+            notDirs: ['source/_assets/', 'source/assets/'],
+        },
+    }
+    register(config = {}) {
+        Array.isArray(config.watch)
+            ? this.config.watch.files.push(...config.watch)
+            : this.config.watch = { ...this.config.watch, ...config.watch };
     }
     webpackPlugins() {
         const watchConfig = this.config.watch;
