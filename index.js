@@ -7,14 +7,14 @@ const hasbin = require('hasbin');
 
 const bin = existsSync('./vendor/bin/jigsaw') ? normalize('./vendor/bin/jigsaw') : hasbin('jigsaw', (result) => {
     if (result) return 'jigsaw';
-    console.error('Could not find Jigsaw; please install it via Composer.');
+    console.error('Could not find Jigsaw; please install it with Composer.');
     process.exit(1);
 });
 
 const env = process.env.NODE_ENV === 'development' ? 'local' : process.env.NODE_ENV;
 
 const jigsaw = () => exec(`${bin} build -q ${env}`, (error, stdout, stderr) => {
-    console.log(error ? `Error building Jigsaw site:\n${stderr}` : stdout);
+    error ? console.warn(`Error building Jigsaw site:\n${stderr}`) : console.log(stdout);
 });
 
 // Picks up everything except new files created directly in 'source/'
