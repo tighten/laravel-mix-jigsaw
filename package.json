@@ -1,16 +1,19 @@
 {
     "name": "laravel-mix-jigsaw",
-    "version": "1.5.0",
-    "description": "Laravel Mix plugin for Jigsaw build tasks",
+    "version": "2.0.0-beta.1",
+    "description": "Laravel Mix plugin for Jigsaw",
     "license": "MIT",
     "main": "index.js",
     "repository": {
         "type": "git",
-        "url": "https://github.com/tightenco/laravel-mix-jigsaw"
+        "url": "https://github.com/tighten/laravel-mix-jigsaw"
     },
-    "author": "Brandon Nifong",
-    "homepage": "https://github.com/tightenco/laravel-mix-jigsaw",
-    "bugs": "https://github.com/tightenco/laravel-mix-jigsaw/issues",
+    "author": {
+        "name": "Jacob Baker-Kretzmar",
+        "email": "jacob@tighten.co"
+    },
+    "homepage": "https://github.com/tighten/laravel-mix-jigsaw",
+    "bugs": "https://github.com/tighten/laravel-mix-jigsaw/issues",
     "keywords": [
         "jigsaw",
         "laravel",
@@ -18,16 +21,9 @@
         "laravel-mix-plugin"
     ],
     "dependencies": {
-        "browser-sync": "^2.26.7",
-        "browser-sync-webpack-plugin": "^2.2.2",
-        "extra-watch-webpack-plugin": "^1.0.3",
-        "hasbin": "^1.2.3",
-        "node-cmd": "^4.0.0",
-        "tapable": "^2.2.0",
-        "yargs": "^15.4.1"
+        "hasbin": "^1.2.3"
     },
     "peerDependencies": {
-        "laravel-mix": "^4.0||^5.0||^6.0",
-        "webpack": "^4.0||^5.0"
+        "laravel-mix": "^6.0.0"
     }
 }
