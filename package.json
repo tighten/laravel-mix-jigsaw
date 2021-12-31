@@ -8,10 +8,10 @@
         "type": "git",
         "url": "https://github.com/tighten/laravel-mix-jigsaw"
     },
-    "author": {
-        "name": "Jacob Baker-Kretzmar",
-        "email": "jacob@tighten.co"
-    },
+    "author": "Jacob Baker-Kretzmar <jacob@tighten.co>",
+    "contributors": [
+        "Brandon Nifong",
+    ],
     "homepage": "https://github.com/tighten/laravel-mix-jigsaw",
     "bugs": "https://github.com/tighten/laravel-mix-jigsaw/issues",
     "keywords": [
