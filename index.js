@@ -14,7 +14,7 @@ const bin = existsSync('./vendor/bin/jigsaw') ? normalize('./vendor/bin/jigsaw')
 const env = process.env.NODE_ENV === 'development' ? 'local' : process.env.NODE_ENV;
 
 const jigsaw = () => exec(`${bin} build -q ${env}`, (error, stdout, stderr) => {
-    error ? console.warn(`Error building Jigsaw site:\n${stderr}`) : console.log(stdout);
+    error ? console.warn(`Error building Jigsaw site:\n${stderr}\n${stdout}`) : console.log(stdout);
 });
 
 // Picks up everything except new files created directly in 'source/'
