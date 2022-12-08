@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
 const { existsSync } = require('fs');
 const { normalize, resolve } = require('path');
 const glob = require('glob');
@@ -13,8 +13,10 @@ const bin = existsSync('./vendor/bin/jigsaw') ? normalize('./vendor/bin/jigsaw')
 
 const env = process.env.NODE_ENV === 'development' ? 'local' : process.env.NODE_ENV;
 
-const jigsaw = () => exec(`${bin} build -q ${env}`, (error, stdout, stderr) => {
-    error ? console.warn(`Error building Jigsaw site:\n${stderr}\n${stdout}`) : console.log(stdout);
+const jigsaw = () => spawn(bin, ['build', '-q', env], {stdio:'inherit'}).on('exit', (code) => {
+    if (code > 0) {
+        console.warn(`\nBuild failed. Fix the above and try again.`);
+    }
 });
 
 // Picks up everything except new files created directly in 'source/'
