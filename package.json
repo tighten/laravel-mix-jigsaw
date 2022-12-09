@@ -10,7 +10,7 @@
     },
     "author": "Jacob Baker-Kretzmar <jacob@tighten.co>",
     "contributors": [
-        "Brandon Nifong",
+        "Brandon Nifong"
     ],
     "homepage": "https://github.com/tighten/laravel-mix-jigsaw",
     "bugs": "https://github.com/tighten/laravel-mix-jigsaw/issues",
