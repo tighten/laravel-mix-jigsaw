@@ -13,9 +13,9 @@ const bin = existsSync('./vendor/bin/jigsaw') ? normalize('./vendor/bin/jigsaw')
 
 const env = process.env.NODE_ENV === 'development' ? 'local' : process.env.NODE_ENV;
 
-const jigsaw = () => spawn(bin, ['build', env], {stdio:'inherit'}).on('exit', (code) => {
+const jigsaw = () => spawn(bin, ['build', env], { stdio: 'inherit' }).on('exit', (code) => {
     if (code > 0) {
-        console.warn(`\nBuild failed. Fix the above and try again.`);
+        console.warn(`\nJigsaw build failed, see above.`);
     }
 });
 
